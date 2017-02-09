@@ -7,7 +7,8 @@ const option = {
   },
   votes: {
     type: Number,
-    default: 0
+    default: 0,
+    min: 0
   }
 }
 
@@ -16,6 +17,8 @@ const poll = new mongoose.Schema({
     type: [option],
     required: true
   }
+}, {
+  strict: true
 })
 
 let pollSchema
