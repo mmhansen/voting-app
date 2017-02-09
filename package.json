@@ -1,0 +1,30 @@
+{
+  "name": "voting-app",
+  "version": "1.0.0",
+  "description": "A simple voting platform.",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "debug": "^2.6.0",
+    "env-cmd": "^4.0.0",
+    "express": "^4.14.1",
+    "mongoose": "^4.8.1"
+  },
+  "devDependencies": {
+    "commitizen": "^2.9.5",
+    "cz-conventional-changelog": "^1.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmhansen/voting-app.git"
+  },
+  "author": "Michael Hansen <hansen.mmb@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mmhansen/voting-app/issues"
+  },
+  "homepage": "https://github.com/mmhansen/voting-app#readme"
+}
