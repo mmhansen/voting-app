@@ -6,12 +6,14 @@ cache:
 notifications:
   email: false
 node_js:
-  - iojs
+  - node
 before_install:
-  - npm i -g npm@^2.0.0
+  - npm i -g npm@^3.0.0
 before_script:
   - npm prune
 script:
   - npm run test:once
 after_success:
+  - npm run coverage
+  - npm run report-coverage
   - npm run semantic-release

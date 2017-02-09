@@ -20,6 +20,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "faucet": "^0.0.1",
     "nodemon": "^1.11.0",
+    "nyc": "^10.1.2",
     "supertest": "^3.0.0",
     "tape": "^4.6.3",
     "tape-watch": "^2.2.4"
@@ -27,9 +28,11 @@
   "scripts": {
     "commit": "git-cz",
     "test": "env-cmd test tape-watch test/*.js -o '| faucet'",
-    "test:once": "env-cmd test tape test/*.js -o '| faucet'",
+    "test:once": "env-cmd test tape test/*.test.js -o '| faucet'",
     "semantic-release": "corp-semantic-release",
-    "start": "env-cmd development nodemon src --watch src"
+    "start": "env-cmd development nodemon src --watch src",
+    "coverage": "nyc env-cmd test tape test/*.test.js",
+    "report-coverage": "env-cmd test nyc report --reporter=lcov > coverage.lcov && codecov -t 3cfcdefa-220d-4a99-aa69-5e7fbfb1ca02"
   },
   "repository": {
     "type": "git",
