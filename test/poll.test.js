@@ -14,7 +14,11 @@ const setup = function () {
 }
 before('before', t => {
   // if (mongoose.connection.readyState)
-  mongoose.connect('mongodb://localhost/voting-app-TEST')
+  const db = process.env.TRAVIS
+  ? 'mongodb://admin:123@ds147789.mlab.com:47789/travis-test'
+  : 'mongodb://localhost/voting-app-TEST'
+
+  mongoose.connect(db)
   t.pass('Before test')
   t.end()
 })
