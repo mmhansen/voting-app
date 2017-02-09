@@ -1,27 +1,19 @@
 const test = require('tape')
 const request = require('supertest')
 const server = require('../src')
-const mongoose = require('mongoose')
-const before = test
-const after = test
+
 const fixtures = require('./fixtures')
 const pollModel = require('../src/models/poll')
+const before = require('./utils').before
+const after = require('./utils').after
 
 const setup = function () {
   return pollModel
     .findOne({})
     .exec()
 }
-before('before', t => {
-  // if (mongoose.connection.readyState)
-  const db = process.env.TRAVIS
-  ? 'mongodb://admin:123@ds147789.mlab.com:47789/travis-test'
-  : 'mongodb://localhost/voting-app-TEST'
 
-  mongoose.connect(db)
-  t.pass('Before test')
-  t.end()
-})
+test('before', before)
 
 test('GET /poll', t => {
   request(server)
@@ -88,11 +80,4 @@ test('DELETE /poll/:pollId', t => {
     })
 })
 
-after('after', (t) => {
-  mongoose.models = {}
-  mongoose.modelSchemas = {}
-  if (mongoose.connection.db) mongoose.connection.db.dropDatabase()
-  if (mongoose.connection.readyState) mongoose.disconnect()
-  t.pass('After test')
-  t.end()
-})
+test('after', after)
