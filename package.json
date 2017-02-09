@@ -27,6 +27,7 @@
   "scripts": {
     "commit": "git-cz",
     "test": "env-cmd test tape-watch test/*.js -o '| faucet'",
+    "test:once": "env-cmd test tape test/*.js -o '| faucet'",
     "semantic-release": "corp-semantic-release",
     "start": "env-cmd development nodemon src --watch src"
   },
@@ -40,7 +41,9 @@
     "url": "https://github.com/mmhansen/voting-app/issues"
   },
   "homepage": "https://github.com/mmhansen/voting-app#readme",
-  "czConfig": {
-    "path": "node_modules/cz-conventional-changelog"
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
 }
