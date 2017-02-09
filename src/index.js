@@ -5,11 +5,15 @@ const http = require('debug')('http')
 const db = require('debug')('db')
 const config = require('./config')
 const port = config.port
+const api = require('./router')
 /**
  * Create server instance
  */
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use('/api', api)
 
 app.get('/', function (req, res, next) {
   res
@@ -35,14 +39,18 @@ app.use(function (err, req, res, next) {
     })
 })
 
-const dbConnection = mongoose.connection
-mongoose.connect(config.database)
-dbConnection.on('connected', function () {
-  db('Db connected on ' + config.database)
-})
+if (process.env.NODE_ENV !== 'test') {
+  const dbConnection = mongoose.connection
+  mongoose.connect(config.database)
+  dbConnection.on('connected', function () {
+    db('Db connected on ' + config.database)
+  })
+}
 
-app.listen(port, function () {
-  http('server running on port ' + port)
-})
+if (!module.parent) {
+  app.listen(port, function () {
+    http('server running on port ' + port)
+  })
+}
 
 module.exports = app

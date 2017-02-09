@@ -1,14 +1,27 @@
 const mongoose = require('mongoose')
 
+const option = {
+  name: {
+    type: String,
+    required: true
+  },
+  votes: {
+    type: Number,
+    default: 0
+  }
+}
+
 const poll = new mongoose.Schema({
-  options: [
-    {
-      type: String,
-      unique: true,
-      votes: Number
-    }
-  ]
+  options: {
+    type: [option],
+    required: true
+  }
 })
 
-const pollSchema = mongoose.model('poll', poll)
+let pollSchema
+try {
+  pollSchema = mongoose.model('poll')
+} catch (e) {
+  pollSchema = mongoose.model('poll', poll)
+}
 module.exports = pollSchema
